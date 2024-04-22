@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://r5gb52x2dabl"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i0pjc"]
+albedo_color = Color(1, 0.52549, 0.172549, 1)
+emission_enabled = true
+emission = Color(1, 0.52549, 0.172549, 1)
+emission_energy_multiplier = 2.5
+
+[sub_resource type="SphereMesh" id="SphereMesh_6fwqi"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_sv5sb"]
+points = PackedVector3Array(-1.5, -1.49971, -1.49971, 1.5, 1.49978, 1.49978, 1.5, -1.49978, 1.49978, 1.5, 1.49978, -1.49978, -1.5, 1.49971, 1.49971, 1.5, -1.49978, -1.49978, -1.5, -1.49971, 1.49971, -1.5, 1.49971, -1.49971)
+
+[node name="Coin" type="Area3D" groups=["Coin"]]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_i0pjc")
+mesh = SubResource("SphereMesh_6fwqi")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." groups=["Coin"]]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_sv5sb")

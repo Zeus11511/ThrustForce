@@ -1,0 +1,76 @@
+[gd_scene load_steps=10 format=3 uid="uid://bgx6558ascue"]
+
+[ext_resource type="Texture2D" uid="uid://bksoquemjuxxa" path="res://Level/back_stars.png" id="2_17c08"]
+[ext_resource type="PackedScene" uid="uid://dpdmeitg3m30u" path="res://Pads/launch_pad.tscn" id="2_lb4ys"]
+[ext_resource type="PackedScene" uid="uid://bg15qab7xo3n8" path="res://Pads/landing_pad.tscn" id="3_21cwc"]
+[ext_resource type="PackedScene" uid="uid://bcsq1qcxegyby" path="res://Hazards/moving_hazard.tscn" id="4_jjvfh"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sjy1m"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_26ct0"]
+sky_material = SubResource("ProceduralSkyMaterial_sjy1m")
+
+[sub_resource type="Environment" id="Environment_eqq5d"]
+background_mode = 2
+sky = SubResource("Sky_26ct0")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iccui"]
+albedo_texture = ExtResource("2_17c08")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_51k45"]
+albedo_color = Color(0.694118, 0.32549, 0.0823529, 1)
+
+[node name="Level" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_eqq5d")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, -2.79834, -5.02499, 0)
+shadow_enabled = true
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 13.73)
+fov = 73.4
+
+[node name="LaunchPad" parent="." instance=ExtResource("2_lb4ys")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0.25, 0)
+
+[node name="Floor" type="CSGBox3D" parent="." groups=["Crash"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4, 0)
+material_override = SubResource("StandardMaterial3D_iccui")
+use_collision = true
+size = Vector3(30, 8, 5)
+material = SubResource("StandardMaterial3D_51k45")
+
+[node name="LandingPad" parent="." instance=ExtResource("3_21cwc")]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0, 0, 0, 1, 9.69694, 0.307117, -0.00606251)
+
+[node name="MovingHazard" parent="." instance=ExtResource("4_jjvfh")]
+transform = Transform3D(-0.415001, 0, 0, 0, -0.999999, 0, 0, 0, 1, 2.74881, 5.307, 0.0379562)
+destination = Vector3(-5, 10, 0)
+duration = 1.0
+
+[node name="MovingHazard2" parent="." instance=ExtResource("4_jjvfh")]
+transform = Transform3D(0.414892, 0.022792, 0, -0.00945865, 0.99974, 0, 0, 0, 1, -5, 10, 0)
+destination = Vector3(5, -5, 0)
+duration = 1.0
+
+[node name="MovingHazard4" parent="." instance=ExtResource("4_jjvfh")]
+transform = Transform3D(-0.414638, -0.0417536, 0, 0.0173277, -0.999128, 0, 0, 0, 1, -2.71992, 5, -0.025)
+destination = Vector3(5, 10, 0)
+duration = 1.0
+
+[node name="MovingHazard3" parent="." instance=ExtResource("4_jjvfh")]
+transform = Transform3D(-0.414976, 0.0106113, 0, -0.0044037, -0.999944, 0, 0, 0, 1, 5, 10, 0)
+destination = Vector3(-5, -5, 0)
+duration = 1.0
+
+[node name="MovingHazard5" parent="." instance=ExtResource("4_jjvfh")]
+transform = Transform3D(0.415, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
+destination = Vector3(0, -10, 0)
+duration = 2.0

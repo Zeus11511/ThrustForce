@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://dpdmeitg3m30u"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ks42q"]
+albedo_color = Color(0.392157, 0, 1, 1)
+emission_enabled = true
+emission = Color(0.392157, 0, 1, 1)
+emission_energy_multiplier = 10.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_txjmt"]
+albedo_color = Color(0.121569, 0, 0.811765, 1)
+emission_enabled = true
+emission = Color(0.121569, 0, 0.811765, 1)
+emission_energy_multiplier = 10.0
+
+[node name="LaunchPad" type="CSGBox3D" groups=["Launch"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.0635, -0.0698118, 0.0287037)
+material_override = SubResource("StandardMaterial3D_ks42q")
+use_collision = true
+size = Vector3(3, 0.5, 3)
+material = SubResource("StandardMaterial3D_txjmt")

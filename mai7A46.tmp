@@ -1,0 +1,223 @@
+[gd_scene load_steps=9 format=3 uid="uid://br1fo67kijpxr"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_j68yc"]
+[ext_resource type="AudioStream" uid="uid://418lyv4ttkhi" path="res://main_song.mp3" id="2_l6i7d"]
+[ext_resource type="Texture2D" uid="uid://dfyeonga0x5tj" path="res://Level/Space6.png" id="2_vlfty"]
+[ext_resource type="Script" path="res://Control.gd" id="4_6xyvv"]
+[ext_resource type="Script" path="res://level_tag.gd" id="4_w35sj"]
+[ext_resource type="Script" path="res://LevelCaption.gd" id="5_ac41a"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gyoi1"]
+albedo_texture = ExtResource("2_vlfty")
+emission = Color(0.890196, 0.360784, 0.890196, 1)
+emission_energy_multiplier = 4.1
+emission_operator = 1
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_85yse"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_j68yc")
+
+[node name="MainTheme" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_l6i7d")
+volume_db = -10.0
+mix_target = 2
+
+[node name="LevelManager" type="SubViewportContainer" parent="."]
+offset_right = 1280.0
+offset_bottom = 720.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="LevelManager"]
+transform = Transform3D(23.215, 0, 0, 0, -4.37114e-08, -20, 0, 1, -8.74228e-07, -0.00316525, 14.3124, -2.68906)
+material_override = SubResource("StandardMaterial3D_gyoi1")
+mesh = SubResource("PlaneMesh_85yse")
+
+[node name="Level" type="SubViewport" parent="LevelManager"]
+handle_input_locally = false
+audio_listener_enable_3d = true
+size = Vector2i(1280, 720)
+render_target_update_mode = 4
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 267.0
+offset_right = 1152.0
+offset_bottom = 647.0
+script = ExtResource("4_6xyvv")
+
+[node name="BoxContainer" type="BoxContainer" parent="Control"]
+layout_mode = 0
+offset_left = 27.0
+offset_top = -284.0
+offset_right = 160.0
+offset_bottom = -172.0
+
+[node name="Label" type="Label" parent="Control/BoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Level : 0"
+script = ExtResource("4_w35sj")
+
+[node name="CenterContainer" type="CenterContainer" parent="Control"]
+layout_mode = 0
+offset_top = -17.0
+offset_right = 1152.0
+offset_bottom = 631.0
+
+[node name="LevelCaption" type="Label" parent="Control/CenterContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+script = ExtResource("5_ac41a")
+
+[node name="MainMenu" type="Control" parent="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="Control/MainMenu"]
+layout_mode = 0
+offset_top = -269.0
+offset_right = 1150.0
+offset_bottom = 381.0
+color = Color(0.243137, 1, 1, 1)
+
+[node name="ButtonNew" type="Button" parent="Control/MainMenu"]
+layout_mode = 2
+offset_left = 424.0
+offset_top = -26.0
+offset_right = 768.0
+offset_bottom = 5.0
+text = "New Game"
+
+[node name="ButtonExit" type="Button" parent="Control/MainMenu"]
+layout_mode = 2
+offset_left = 424.0
+offset_top = 107.0
+offset_right = 768.0
+offset_bottom = 138.0
+text = "Exit
+"
+
+[node name="ButtonLevels" type="Button" parent="Control/MainMenu"]
+layout_mode = 2
+offset_left = 424.0
+offset_top = 59.0
+offset_right = 768.0
+offset_bottom = 90.0
+disabled = true
+text = "Levels"
+
+[node name="ButtonContinue" type="Button" parent="Control/MainMenu"]
+layout_mode = 2
+offset_left = 424.0
+offset_top = 18.0
+offset_right = 768.0
+offset_bottom = 49.0
+text = "Continue
+"
+
+[node name="PauseScreen" type="Control" parent="Control"]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="Control/PauseScreen"]
+layout_mode = 0
+offset_top = -269.0
+offset_right = 1150.0
+offset_bottom = 381.0
+color = Color(0.243137, 1, 1, 0.0784314)
+
+[node name="PanelContainer" type="PanelContainer" parent="Control/PauseScreen"]
+layout_mode = 0
+offset_left = 423.0
+offset_top = 20.0
+offset_right = 769.0
+offset_bottom = 138.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/PauseScreen/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 11
+
+[node name="PauseContinue" type="Button" parent="Control/PauseScreen/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Continue
+"
+
+[node name="PauseMainMenu" type="Button" parent="Control/PauseScreen/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Back to main menu"
+
+[node name="PauseExit" type="Button" parent="Control/PauseScreen/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Exit
+"
+
+[node name="CompleteScreen" type="Control" parent="Control"]
+visible = false
+anchors_preset = 0
+offset_top = -265.0
+offset_right = 1151.0
+offset_bottom = 380.0
+
+[node name="ColorRect" type="ColorRect" parent="Control/CompleteScreen"]
+layout_mode = 0
+offset_right = 1150.0
+offset_bottom = 650.0
+color = Color(0.192157, 0.133333, 0.2, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="Control/CompleteScreen"]
+layout_mode = 0
+offset_right = 1153.0
+offset_bottom = 644.0
+
+[node name="CompleteText" type="Label" parent="Control/CompleteScreen/CenterContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "You beat the game !"
+script = ExtResource("5_ac41a")
+
+[node name="Death" type="Node" parent="."]
+
+[node name="Obstacle3" type="CSGBox3D" parent="Death"]
+transform = Transform3D(-4.37114e-08, -6.2588, 0, 1, -2.73581e-07, 0, 0, 0, 1, 1.865, 18.3981, -0.864)
+top_level = true
+visible = false
+use_collision = true
+size = Vector3(3, 9.32861, 3)
+
+[node name="Obstacle5" type="CSGBox3D" parent="Death"]
+transform = Transform3D(-4.37114e-08, -6.2588, 0, 1, -2.73581e-07, 0, 0, 0, 1, 1.865, -6.59078, -0.864)
+top_level = true
+visible = false
+use_collision = true
+size = Vector3(3, 9.32861, 3)
+
+[node name="Obstacle4" type="CSGBox3D" parent="Death"]
+transform = Transform3D(1, 0, 0, 0, 4.62826, 0, 0, 0, 1, 24.871, 11.6852, 0)
+top_level = true
+visible = false
+use_collision = true
+size = Vector3(3, 9.32861, 3)
+
+[node name="Obstacle6" type="CSGBox3D" parent="Death"]
+transform = Transform3D(1, 0, 0, 0, 4.62826, 0, 0, 0, 1, -25.3783, 11.6852, -0.0416031)
+top_level = true
+visible = false
+use_collision = true
+size = Vector3(3, 9.32861, 3)
+
+[connection signal="pressed" from="Control/MainMenu/ButtonNew" to="." method="_on_button_new_pressed"]
+[connection signal="pressed" from="Control/MainMenu/ButtonExit" to="." method="_on_button_exit_pressed"]
+[connection signal="pressed" from="Control/MainMenu/ButtonLevels" to="." method="_on_button_levels_pressed"]
+[connection signal="pressed" from="Control/MainMenu/ButtonContinue" to="." method="_on_button_continue_pressed"]
+[connection signal="pressed" from="Control/PauseScreen/PanelContainer/VBoxContainer/PauseContinue" to="." method="_on_pause_continue_pressed"]
+[connection signal="pressed" from="Control/PauseScreen/PanelContainer/VBoxContainer/PauseMainMenu" to="." method="_on_button_levels_pressed"]
+[connection signal="pressed" from="Control/PauseScreen/PanelContainer/VBoxContainer/PauseMainMenu" to="." method="_on_pause_main_menu_pressed"]
+[connection signal="pressed" from="Control/PauseScreen/PanelContainer/VBoxContainer/PauseExit" to="." method="_on_button_exit_pressed"]
+[connection signal="pressed" from="Control/PauseScreen/PanelContainer/VBoxContainer/PauseExit" to="." method="_on_pause_exit_pressed"]

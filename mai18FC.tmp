@@ -1,0 +1,87 @@
+[gd_scene load_steps=9 format=3 uid="uid://br1fo67kijpxr"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_j68yc"]
+[ext_resource type="PackedScene" uid="uid://boxu6xtih36sl" path="res://player.tscn" id="2_low84"]
+[ext_resource type="Texture2D" uid="uid://dfyeonga0x5tj" path="res://Level/Space6.png" id="2_vlfty"]
+[ext_resource type="Script" path="res://Control.gd" id="4_6xyvv"]
+[ext_resource type="Script" path="res://LevelCaption.gd" id="5_ac41a"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_h4bkq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gyoi1"]
+albedo_texture = ExtResource("2_vlfty")
+emission = Color(0.890196, 0.360784, 0.890196, 1)
+emission_energy_multiplier = 4.1
+emission_operator = 1
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_85yse"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_j68yc")
+
+[node name="KillZone" type="Node" parent="."]
+
+[node name="BOTTOM" type="Area3D" parent="KillZone" groups=["Crash"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.6294, -39.0551, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="KillZone/BOTTOM"]
+transform = Transform3D(55, 0, 0, 0, 55, 0, 0, 0, 55, 51.925, 6.75081, 2.78061)
+shape = SubResource("BoxShape3D_h4bkq")
+
+[node name="LEFT" type="Area3D" parent="KillZone" groups=["Crash"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -101.874, 8.02616, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="KillZone/LEFT"]
+transform = Transform3D(55, 0, 0, 0, 55, 0, 0, 0, 55, 51.925, 6.75081, 2.78061)
+shape = SubResource("BoxShape3D_h4bkq")
+
+[node name="RIGHT" type="Area3D" parent="KillZone" groups=["Crash"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.31612, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="KillZone/RIGHT"]
+transform = Transform3D(55, 0, 0, 0, 55, 0, 0, 0, 55, 51.925, 6.75081, 2.78061)
+shape = SubResource("BoxShape3D_h4bkq")
+
+[node name="TOP" type="Area3D" parent="KillZone" groups=["Crash"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -55.001, 54.1911, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="KillZone/TOP"]
+transform = Transform3D(55, 0, 0, 0, 55, 0, 0, 0, 55, 51.925, 6.75081, 2.78061)
+shape = SubResource("BoxShape3D_h4bkq")
+
+[node name="LevelManager" type="SubViewportContainer" parent="."]
+offset_right = 1280.0
+offset_bottom = 720.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="LevelManager"]
+transform = Transform3D(23.215, 0, 0, 0, -4.37114e-08, -20, 0, 1, -8.74228e-07, -0.00316525, 14.3124, -2.68906)
+material_override = SubResource("StandardMaterial3D_gyoi1")
+mesh = SubResource("PlaneMesh_85yse")
+
+[node name="Level" type="SubViewport" parent="LevelManager"]
+handle_input_locally = false
+audio_listener_enable_3d = true
+size = Vector2i(1280, 720)
+render_target_update_mode = 4
+
+[node name="Player" parent="LevelManager" instance=ExtResource("2_low84")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.540823, -0.867655, -0.0575874)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 267.0
+offset_right = 1152.0
+offset_bottom = 647.0
+script = ExtResource("4_6xyvv")
+
+[node name="CenterContainer" type="CenterContainer" parent="Control"]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="LevelCaption" type="Label" parent="Control/CenterContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "1. This text is just a placeholder :)"
+script = ExtResource("5_ac41a")

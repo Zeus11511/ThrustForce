@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3 uid="uid://kwx012sm2284"]
+
+[ext_resource type="Script" path="res://main_menu.gd" id="1_cuciq"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_cuciq")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 456.0
+offset_top = 216.0
+offset_right = 683.0
+offset_bottom = 290.0
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+custom_minimum_size = Vector2(21.45, 0)
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 280.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CenterContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "BBCode [center][color=red]Hello[/color] from [b]here[/b][/center]"
+scroll_active = false
